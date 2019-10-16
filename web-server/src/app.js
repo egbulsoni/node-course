@@ -1,23 +1,47 @@
+const path = require('path')
 const express = require('express')
+const hbs = require('hbs')
 
 const app = express()
 
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
+// console.log(__dirname)
+// console.log(__filename)
+// console.log(path.join(__dirname, '../public'))
+
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
+
+// Setup static directory to serve
+app.use(express.static(publicDirectoryPath))
+
 app.get('', (req, res) => {
-    res.send('<h1>Weather</h1>')
+    res.render('index', {
+        title: 'Weather App',
+        name: 'Eduardo Bulsoni'
+    })
 })
 
 app.get('/help', (req, res) => {
-    res.send([{
-        name: 'Eduardo',
-        age: 22
-    }, {
-        name: 'Sarah',
-        age: 20
-    }])
+    res.render('help', {
+        message: "this is the help message",
+        title: 'Help',
+        name: 'Eduardo Bulsoni'
+    })
+
 })
 
 app.get('/about', (req, res) => {
-    res.send('<h1>About<h1>')
+    res.render('about', {
+        title: 'About Me',
+        name: 'Eduardo Bulsoni'        
+    })
+
 })
 
 app.get('/weather', (req, res) => {
