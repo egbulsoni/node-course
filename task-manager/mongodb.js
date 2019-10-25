@@ -20,33 +20,53 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
 
     const db = client.db(databaseName)
 
-    // db.collection('users').findOne({ _id: new ObjectID("5db34d9743787c388374823c")}, (error, user) => {
-    //     if (error) {
-    //         return console.log('Unable to fetch')
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5dace25a0ffab63b48d12e40")
+    // }, {
+    //     $set: {
+    //         name: 'Mike'
     //     }
-
-    //     console.log(user)
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
     // })
 
-    // db.collection('users').find({ age: 22 }).toArray((error, users) => {
-    //     console.log(users)
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5dace25a0ffab63b48d12e40")
+    // }, {
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
     // })
 
-    // db.collection('users').find({ age: 22 }).count((error, count) => {
-    //     console.log(count)
+    // db.collection('tasks').updateMany(
+    // { completed: false }, {
+    //     $set: { completed: true }
+    // }).then((result) => {
+    //     console.log(result.modifiedCount)
+    // }).catch((error) => {
+    //     console.log(error)
     // })
 
-    db.collection('tasks').findOne({ _id: new ObjectID("5daceb4da928bd41ef35722a")}, (error, task) => {
-        if (error) {
-            return console.log('Unable to fetch data')
-        }
-        console.log(task)
+    // db.collection('users').deleteMany({
+    //     age: 27
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
+    // })
+
+    db.collection('tasks').deleteOne({
+        description: "feed the dog"
+    }).then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
     })
 
-    db.collection('tasks').find({ completed: false}).toArray((error, tasks) => {
-        if (error) {
-            return console.log('Unable to fetch data')
-        }
-        console.log(tasks)
-    })
 })
